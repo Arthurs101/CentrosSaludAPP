@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <main>
+            <p>
+                Para las enfermedades (/enf):
+                <p>
+                    GET METHODS
+                </p>
+                <ul>
+                    <li>
+                        obtener todas las enfermedades de la base de datos:
+                        <a href = "https://us-central1-firstapi-cf05c.cloudfunctions.net/app/enf/all" target="_blank"> enf/all</a> 
+                    </li>
+                    <li> 
+                        buscar enfermedades por id o nombre o tipo : (/search)
+                        parametros = id : id de la enfermedad , name: nombre buscar , type: tipo de la enfermedad a buscar,
+                        la busqueda con parametros name y type, regresará todos los resultados que contengan el patrón de lo ingresado : <br>
+                        ejemplos: 
+                        <ul>
+                            <li> buscar enfermedad con id 1 : 
+                                <a href="https://us-central1-firstapi-cf05c.cloudfunctions.net/app/enf/search?id=1" target="_blank">search?id=1</a></li>
+                            <li>
+                                buscar por nombre , AlCO (regresa todas aquellas que tengan ALCO en su nombre)
+                                <a href="https://us-central1-firstapi-cf05c.cloudfunctions.net/app/enf/search?name=AlCO" target="_blank">search?name=AlCO</a></li>
+                            </li>
+                            <li>
+                                buscar por tipo , ADIC (regresa todas aquellas que tengan ADIC en su tipo)
+                                <a href="https://us-central1-firstapi-cf05c.cloudfunctions.net/app/enf/search?type=ADIC" target="_blank">search?type=ADIC</a></li>
+                            </li>
+                            <li>
+                                buscar por nombre AlCO (regresa todas aquellas que tengan ALCO en su nombre) y tipo , ADIC (regresa todas aquellas que tengan ADIC en su tipo)
+                                <a href="https://us-central1-firstapi-cf05c.cloudfunctions.net/app/enf/search?name=ALCO&type=ADIC" target="_blank">search?name=ALCO&type=ADIC</a></li>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <hr>
+            </p>
+            <p>
+                Para manejo usuarios (/user):
+                <p>
+                    GET METHODS
+                </p>
+                <hr>
+
+                <p>
+                    POST METHODS
+                </p>
+               
+                <ul>
+                    <li>
+                        /login <br>
+                        para hacer login, estructura  {username:"user" , password:"password"} regresa , en caso exitoso : {
+                            "user": "AA",
+                            "iniciado": true,
+                            "user_type": "user_type",
+                            }, 
+                            de lo contrario: {
+                            "user": "AA",
+                            "iniciado": false,
+                            "user_type": "",
+                            "error": "Usuario o contraseña incorrectos"
+                        }
+                    </li>
+                    <li>
+                        /singup <br>
+                        para hacer sign up A empleado existente: 
+                        {username:"user" , 
+                        password:"password" , 
+                        personal_id: "123...."}
+                        regresa : { 
+                            username:"user",
+                            created: boolean, true si fue creado, false si no lo fue
+                            err: "Error" -- solo si aplica
+                        }
+                        el rol por defecto es según su rol como empleado, debe de ser modificado después por un ADMIN 
+                        También puede emplearse para crear un nuevo usuario siendo administrador 
+
+                    </li>
+                </ul>
+                <hr>
+            </p>
+        </main>
+    </body>
+</html>
