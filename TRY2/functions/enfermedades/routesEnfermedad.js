@@ -3,5 +3,6 @@ const controller = require('./controllerEnfermedad')
 const router = Router();
 
 router.get('/all',controller.getAll);
-module.exports = router
 router.get('/search', controller.Searcher);
+router.post('/add',controller.addEnfermedad)
+module.exports = router

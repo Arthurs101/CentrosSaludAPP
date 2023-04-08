@@ -31,7 +31,16 @@ const Searcher = (req, res) => {
  }
 }
 
+const addEnfermedad = (req, res) => { 
+    const {nombre, tipo  ,observacion } = req.body;
+    db.query(queries.AddIllnes , [nombre,  tipo , observacion,] , (err,result) => {
+        if (err) {res.send("HUBO UN ERROR, LA ENFERMEDAD PUEDE QUE YA EXISTA")}
+        else {res.send('AÑADIDO') }
+    })
+}
+
 module.exports = {
     getAll ,
-    Searcher
+    Searcher,
+    addEnfermedad 
 }

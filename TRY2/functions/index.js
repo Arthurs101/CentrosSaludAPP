@@ -1,7 +1,7 @@
 const functions = require("firebase-functions");
 const enf = require("./enfermedades/routesEnfermedad");
 const users = require("./users/routes");
-
+const paciente = require("./paciente/routesPaciente");
 var express = require("express");
 var app = express();
 
@@ -10,6 +10,7 @@ app.get('/', (req, res) => {
 })
 app.use("/enf", enf)
 app.use("/user", users);
+app.use("/pac" , paciente);
 exports.app = functions.https.onRequest(app)
 // // Create and deploy your first functions
 // // https://firebase.google.com/docs/functions/get-started

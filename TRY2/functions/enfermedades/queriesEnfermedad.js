@@ -1,5 +1,6 @@
 const getAll = "SELECT * FROM ENFERMEDADES"
 const getID = (id) => {return `SELECT * FROM ENFERMEDADES WHERE id = ${id}`}
+const AddIllnes  = "INSERT INTO ENFERMEDADES (nombre,  tipo, observaciones ) values($1 , $2 , $3)"
 const getByNameType = (name,type) => {
     let query = "SELECT * FROM ENFERMEDADES"
     if (!!name) {
@@ -15,5 +16,6 @@ const getByNameType = (name,type) => {
 module.exports  = {
     getAll,
     getID,
-    getByNameType
+    getByNameType,
+    AddIllnes
 }
