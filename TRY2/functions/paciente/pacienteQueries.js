@@ -24,8 +24,41 @@ ON  no_colegiado_medico_referente = "número_de_colegiado"
 INNER JOIN public.personal d  ON b.id_personal = d.id
 INNER JOIN public.centro_salud c ON a.id_centro_realizado = c.id
 WHERE id_paciente = $1`
-const getEvolucionSurgery = `SELECT id as id_entrada , "observación" , fecha FROM public."evolucion_cirujía" WHERE "cirujía_id" = $1`
-
+const getEvolucionSurgeries = `SELECT id as id_entrada , "observación" , fecha FROM public."evolucion_cirujía" WHERE "cirujía_id" = $1`
+const getTreatments = `SELECT a.ID as id_tratamiento ,estado,
+"diagnóstico_id" as id_diagnostico,
+d.nombres as nombre_medico_referente , 
+d.apellidos as apellidos_medico_referente,
+b."teléfono" as telefono_medico , b.especialidad as especialidad_medico
+FROM public.tratamiento a INNER JOIN public."médico" b 
+ON  "no_colegiado_médico_encargado" = "número_de_colegiado" 
+INNER JOIN public.personal d  ON b.id_personal = d.id
+where "diagnóstico_id" = $1`
+const getMedicamentos = `select tratamiento_id,medicamento_id,cantidad_suministrada,nombre,tipo"descripción"
+from public.medicamento_suministrado_tratamiento
+inner join public.medicamento
+on medicamento_id = "código"
+where tratamiento_id = $1`
+const getTratamientoEvolcuion = `SELECT * FROM public.evolucion_tratamiento WHERE tratamiento_id = $1`
+const getAdicciones = `SELECT enfermedad_id, nombre as nombre_adiccion , observaciones
+FROM public.diagnostico INNER JOIN
+public.enfermedades e ON enfermedad_id = e.id
+WHERE tipo = 'ADICCION' AND paciente_id = $1`
+const getGeneticas = `SELECT enfermedad_id, nombre as nombre_enfermedadGenetica , observaciones
+FROM public.diagnostico INNER JOIN
+public.enfermedades e ON enfermedad_id = e.id
+WHERE tipo = 'GENETICA' AND paciente_id = $1`
+const getDiagnosticos =  `SELECT 
+enfermedad_id, e.nombre as nombre_enfermedad , e.tipo as tipo_enfermedad,
+observaciones , "número_de_colegiado" as no_colegiado , nombres as nombres_medico,
+apellidos as apellidos_medico, c.nombre as centro_salud
+FROM public.diagnostico INNER JOIN
+public.enfermedades e ON enfermedad_id = e.id
+INNER JOIN public."médico" m ON 
+no_colegiado_medico = "número_de_colegiado"
+INNER JOIN public.personal p ON id_personal = p.id
+INNER JOIN public.centro_salud c ON centro_salud_id = c.id
+WHERE e.tipo != 'ADICCION' AND e.tipo != 'GENETICA' AND paciente_id = $1`
 module.exports = {
     addPaciente,
     getAll,
@@ -36,5 +69,11 @@ module.exports = {
     updatePaciente ,
     getSurgery ,
     getExams , 
-    getEvolucionSurgery
+    getEvolucionSurgeries ,
+    getTreatments ,
+    getMedicamentos,
+    getTratamientoEvolcuion,
+    getAdicciones ,
+    getGeneticas,
+    getDiagnosticos
 }

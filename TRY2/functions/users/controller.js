@@ -29,8 +29,48 @@ const signup = (req, res)=>{
         
     })
 }
+const modify = (req, res) => {
+    const {username, password, rol , estado , obervacion} = req.body
+    db.query(queries.modify , [username, password, rol , estado , obervacion] , (err, result) => {
+        if (err) {
+            res.send('HUBO UN ERROR: ' + err.message)
+        }
+        else {
+            res.status(200).json(result.rows);
+        }
+    })
+ }
+ const bitácora_usuario = (req, res) => {
+    let username = req.query.username;
+    if (!!username) {
+        db.query(queries.getLog , [username], (err, result) => {
+            if (err) { 
+                res.send('HUBO UN ERROR: ' + err.message)
+            }else {
+                res.status(200).json(result.rows)
+            }
+        })
+    }
+ }
+
+ const detalles = (req, res) => { 
+    let username = req.query.username;
+    if (!!username) {
+        db.query(queries.getdetails , [username], (err, result) => {
+            if (err) { 
+                res.send('HUBO UN ERROR: ' + err.message)
+            }else {
+                res.status(200).json(result.rows)
+            }
+        })
+    }
+ }
 
 module.exports = {
     login,
-    signup
+    signup,
+    modify,
+    bitácora_usuario,
+    detalles
+
 }
