@@ -72,7 +72,7 @@
                     </li>
                     <li>
                         /singup <br>
-                        para hacer sign up A empleado existente: 
+                        para hacer sign up a empleado existente: 
                         {username:"user" , 
                         password:"password" , 
                         personal_id: "123...."}
@@ -97,10 +97,45 @@
                 <li>
                     / .. añade un nuevo paciente (/pac) <br>
                     cuerpo a enviar: 
-                    
-
+                    {nombres : "bbbs",
+                    apellidos: "aaa",
+                    edad: 40,
+                    altura: 120,
+                    masa: 90, 
+                    estado: "sano"}
+                    la altura es en cm y la masa en kg
                 </li>
                </ul>
+            </p>
+            <hr>
+            <p>
+                personal : /personal
+                GET METHODS 
+
+                POST METHODS 
+                <ul>
+                    <li>
+                        /personal --- es decir el root 
+                        Cuerpo a eviar:
+                        (si es medico )
+                        {
+                            "idCentro": 1,
+                            "tipo": "MEDICO",
+                            "nombres": "WILLIAM",
+                            "apellidos": "WHITE",
+                            "colegiado": 124567,
+                            "direccion": "7ma calle fake avenue",
+                            "telefono": 111111111,
+                            "especialidad": "CIRUJANO"                        
+                        } si es personal normal: {
+                            "idCentro": 1,
+                            "tipo": "ADMINISTRADOR",
+                            "nombres": "WILLIAM",
+                            "apellidos": "WHITE",                        
+                        }                    
+                    </li>
+                </ul>
+
             </p>
         </main>
     </body>

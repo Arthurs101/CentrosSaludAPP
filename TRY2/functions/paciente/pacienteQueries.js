@@ -1,4 +1,5 @@
-const addPaciente = "INSERT INTO PACIENTE (nombres,apellidos,edad,altura,masa,estado) VALUES ($1,$2,$3,$4,$5,$6)"
+const HISTORY = `INSERT INTO bitacora (tabla, tipo, observacion, fecha) VALUES ('PACIENTES',$1, $2, now() )`
+const addPaciente = "INSERT INTO PACIENTE (nombres,apellidos,edad,altura,masa,estado) VALUES ($1,$2,$3,$4,$5,$6);"
 const getAll = "SELECT * FROM PACIENTE";
 const getPacientID = "SELECT * FROM PACIENTE WHERE ID = $1";
 const getPacienteFullName = "SELECT * FROM PACIENTE WHERE nombres LIKE $1 AND apellidos LIKE $2";
@@ -75,5 +76,6 @@ module.exports = {
     getTratamientoEvolcuion,
     getAdicciones ,
     getGeneticas,
-    getDiagnosticos
+    getDiagnosticos,
+    HISTORY
 }
