@@ -59,9 +59,11 @@
                     <li>
                         /login <br>
                         para hacer login, estructura  {username:"user" , password:"password"} regresa , en caso exitoso : {
-                            "user": "AA",
+                            "user_name": "WWHITE",
+                            "user_type": "MEDIC",
                             "iniciado": true,
-                            "user_type": "user_type",
+                            "idcentro": 2,
+                            "colegiado": "12456" ( si aplica de lo contrario se regresa -1)
                             }, 
                             de lo contrario: {
                             "user": "AA",
@@ -89,9 +91,9 @@
                 <hr>
             </p>
             <p>
-                pacientes /pac
-                <hr>
-                POST METHODS 
+                pacientes /pac 
+                <br>
+                POST METHODS <br>
 
                <ul>
                 <li>
@@ -106,13 +108,25 @@
                     la altura es en cm y la masa en kg
                 </li>
                </ul>
+               GET METHODS <br>
+               <ul>
+                <li></li>
+               </ul>
             </p>
             <hr>
             <p>
-                personal : /personal
+                personal : /personal <br>
                 GET METHODS 
-
-                POST METHODS 
+                <ul>
+                    <li>
+                        /personal --- es decir el root  <br>
+                        requiere del siguiente query parametro: centroid
+                        ejemplo:
+                        <a href="/personal?centroid=1" target="_blank">/personal?centroid=1</a>
+                    </li>
+                </ul>
+                <br>
+                POST METHODS <br>
                 <ul>
                     <li>
                         /personal --- es decir el root 

@@ -20,8 +20,8 @@ const signup = (req, res)=>{
     db.query(queries.signup(username, password,personal_id) ,  (err, result) => {
         if (err) 
         {
-           const body =  {user: username, creado: false ,  error: "El usuario ya existe o el dato ingresado no es el correcto"}
-            res.json(body);
+        //    const body =  {user: username, creado: false ,  error: "El usuario ya existe o el dato ingresado no es el correcto"}
+            throw err;
         }else{
             const body =  {user: username, creado: true}
             res.status(200).json(body);

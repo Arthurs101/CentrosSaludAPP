@@ -1,6 +1,7 @@
 const addPersonal = "INSERT INTO personal(id_centro_salud,tipo,nombres,apellidos) VALUES ($1,$2,$3,$4)"
 const addMedico = 'INSERT INTO public."médico" VALUES ($1,$2,$3,$4,$5)'
 const traslado = 'CALL trasladar($1,$2,$3) '
+const getPersonal = "SELECT * FROM personal WHERE id_centro_salud = $1"
 const HISTORY = `INSERT INTO bitacora (tabla, tipo, observacion, fecha) VALUES ('PERSONAL',$1, $2, now() )`
 const searchPersonal = (entries) => {
     let query = "SELECT * FROM personal"
@@ -38,5 +39,5 @@ const searchPersonal = (entries) => {
     return query;
 }
 
-module.exports = {addPersonal, addMedico, searchPersonal , traslado , HISTORY}
+module.exports = {addPersonal, addMedico, searchPersonal , traslado , HISTORY , getPersonal}
     

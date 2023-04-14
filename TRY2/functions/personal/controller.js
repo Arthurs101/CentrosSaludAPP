@@ -45,8 +45,16 @@ const HacerTraslado = (req,res) => {
         res.send(`missing Arguments:`)
     }
 }
-
+const obtenerPersonal = (req, res) => { 
+    if(!!req.query.centroid){
+        db.query(queries.getPersonal , [req.query.centroid] , (err, response) => { 
+            if (err) throw err;
+            res.json(response.rows)
+        })
+    }
+}
 module.exports = {
     addPersonal,
-    HacerTraslado
+    HacerTraslado,
+    obtenerPersonal
 }
