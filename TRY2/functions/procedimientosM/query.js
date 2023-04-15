@@ -35,6 +35,7 @@ const getTratamientoEv = 'SELECT * FROM public.evolucion_tratamiento WHERE trata
 const getCirujiaEv = 'SELECT * FROM public."evolucion_cirujía" WHERE "cirujía_id" = $1'
 const updateTratamiento = 'UPDATE tratamiento set estado = $1 WHERE id = $2'
 const updateCirujiaDetails = 'UPDATE public."cirujía" SET estado = $1 ,fecha_finalizada = $2 WHERE id = $3'
+const addMedicamentoSuministrado = 'INSERT INTO public.medicamento_suministrado_tratamiento VALUES ($1, $2, $3)'
 module.exports = {
     addDiagnostico ,
     addTratamiento,
@@ -49,5 +50,6 @@ module.exports = {
     getTratamientoEv ,
     getCirujiaEv ,
     updateTratamiento ,
-    updateCirujiaDetails
+    updateCirujiaDetails ,
+    addMedicamentoSuministrado
 }

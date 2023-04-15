@@ -79,7 +79,11 @@ const getHandler = (req, res) => {
         res.send('MISSING ARGUMENTS')
     }
 }
-
+const addMedicamentoSuministrado = (req, res) => { 
+    db.query(queries.addMedicamentoSuministrado , Object.values(req.body) , (err, res) => {
+        if(err) throw err;
+    })
+}
 
 const postHandler = (req, res) => {
     if(!!req.query.type){
@@ -95,6 +99,9 @@ const postHandler = (req, res) => {
             break;
             case "examenes":
                 addExamen
+            break;
+            case "medicamento":
+                addMedicamentoSuministrado
             break;
             default: 
             res.send('INVALID ARGUMENT')

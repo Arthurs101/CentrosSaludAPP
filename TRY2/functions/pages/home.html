@@ -3,6 +3,9 @@
     <body>
         <main>
             <p>
+                OJO, SIEMPRE DEVUELVE EN ARREGLO JSON LOS RESULTADOS AUN CUANDO LA CONSULTA DEVUELVA UN SOLO ELEMENTO
+            </p>
+            <p>
                 Para las enfermedades (/enf):
                 <p>
                     GET METHODS
@@ -48,6 +51,44 @@
                 Para manejo usuarios (/user):
                 <p>
                     GET METHODS
+                    <ul>
+                        <li>
+                            /details <br>
+                            parametros:
+                            <ul>
+                                <li>
+                                    username : nombre de usuario a obtener sus detalles 
+                                    ejemplo <br>
+                                    <a href="https://us-central1-firstapi-cf05c.cloudfunctions.net/app/user/details?username=WWHITE" target="_blank">details?username=WWHITE</a></li>
+                                    devolucion: 
+                                    [
+                                        {
+                                            "usuario": "WWHITE",
+                                            "password": "pgadmin",
+                                            "rol": "MEDIC",
+                                            "id_personal": 5,
+                                            "estado": "activo"
+                                        }
+                                    ]
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            /log <br>
+                            devuelve la bitacora del usuario como un arreglo
+                            username : nombre de usuario a obtener sus detalles <br>
+                            <a href="https://us-central1-firstapi-cf05c.cloudfunctions.net/app/user/log?username=WWHITE" target="_blank">log?username=WWHITE</a></li>
+                            [
+                                {
+                                    "id_evento": 9,
+                                    "usuario": "WWHITE",
+                                    "evento_tipo": "CREATE",
+                                    "fecha": "2023-04-13T00:00:00.000Z",
+                                    "observación": "USUARIO CREADO"
+                                }
+                            ]
+                        </li>
+                    </ul>
                 </p>
                 <hr>
 
@@ -87,6 +128,12 @@
                         También puede emplearse para crear un nuevo usuario siendo administrador 
 
                     </li>
+                    <li>
+                        /update <br>
+                        actualizar contenido del usuario, cuerpo a enviar: <br>  
+                        {username: "aa", password: "bb", rol:"cc" , estado:"dd" , obervacion:"asd"} <br>
+                        estados posibles: activo , desactivado
+                    </li>
                 </ul>
                 <hr>
             </p>
@@ -94,7 +141,6 @@
                 pacientes /pac 
                 <br>
                 POST METHODS <br>
-
                <ul>
                 <li>
                     / .. añade un nuevo paciente (/pac) <br>
@@ -107,10 +153,84 @@
                     estado: "sano"}
                     la altura es en cm y la masa en kg
                 </li>
+                <li>
+                    /update actualizar datos del paciente <br>
+                    cuerpo a enviar: 
+                    {nombres : "bbbs",
+                    apellidos: "aaa",
+                    edad: 40,
+                    altura: 120,
+                    masa: 90, 
+                    estado: "sano"
+                    id: 123}
+
+                </li>
                </ul>
                GET METHODS <br>
                <ul>
-                <li></li>
+                <li>/pac <br>
+                    devuelve la lista de todos los pacientes registrados <br>
+                    <a href="https://us-central1-firstapi-cf05c.cloudfunctions.net/app/pac" target="_blank">/pac</a>
+                    <br>
+                    [
+    {
+        "id": 1,
+        "nombres": "ARTHUR",
+        "apellidos": "DUMMY",
+        "edad": 21,
+        "altura": 190,
+        "masa": null,
+        "estado": "sano"
+    },
+    {
+        "id": 2,
+        "nombres": "Arthur",
+        "apellidos": "Argueta",
+        "edad": 21,
+        "altura": 170,
+        "masa": 80,
+        "estado": "enfermo"
+    },
+    {
+        "id": 6,
+        "nombres": "JS",
+        "apellidos": "SULLEYVAN",
+        "edad": 40,
+        "altura": 120,
+        "masa": 90,
+        "estado": "sano"
+    }
+]
+                </li>
+                <li>
+                    /reporte <br>
+                    parametros: <br>
+                    id <--- id del paciente
+                    <br>
+                    type <- parametro para indicar que clase de reporte se quiere: <br>
+                    <ul>
+                        <li>
+                            adiccion : para obtener las adicciones del paciente diagnostico
+                        </li>
+                        <li>
+                            tratamiento : obtener los tratamientos  
+                        </li>
+                        <li>
+                            examen  : obtener los examenes 
+                        </li>
+                        <li>
+                            genetica : enfermedades geneticas (Herreditarias basicamente)
+                        </li>
+                        <li>
+                            cirugia : obtener las cirugias realizadas en el paciente 
+                        </li>
+                        <li>
+                            medicamentos : los medicamentes que se le han administrado 
+                        </li>
+                    </ul>                        
+                        ejemplo: reporte?id=6&type=cirugia <- no importa el orden de id y type, deben de estar ambos
+                </li>
+                
                </ul>
             </p>
             <hr>
