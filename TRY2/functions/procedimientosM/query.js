@@ -3,7 +3,7 @@ const addTratamiento = 'INSERT INTO tratamiento ("no_colegiado_médico_encargado
 const addTratamientoEv = 'INSERT INTO public.evolucion_tratamiento (tratamiento_id,"observación",fecha) VALUES ($1,$2,$3)'
 const addExamen = 'INSERT INTO EXAMEN (no_colegiado_medico_referente,id_paciente,tipo,fecha_realizado,observaciones_adicionales,id_centro_realizado) VALUES ($1,$2,$3,$4,$5,$6)'
 const addCirujia = 'INSERT INTO public."cirujía" (no_colegiado_medico_encargado,id_paciente,fecha_inicio,estado,fecha_finalizada,id_centro_salud) VALUES ($1,$2,$3,$4,$5,$6)'
-const addCirujiaEv= 'INSERT INTO public."evolucion_cirujía" ("cirujía_id","cirujía_id",fecha) VALUES ($1,$2,$3)'
+const addCirujiaEv= 'INSERT INTO public."evolucion_cirujía" ("cirujía_id","observación",fecha) VALUES ($1,$2,$3)'
 const getDiagnosticos = `SELECT a.id as id_diagnostico, paciente_id ,(d.nombres|| ' ' || d.apellidos) as nombre_paciente , (c.nombres|| ' ' || c.apellidos) as nombre_medico ,
 no_colegiado_medico , estado , e.id as id_enfermedad , e.nombre as enfermedad
 FROM public.diagnostico a INNER JOIN public."médico" b on "número_de_colegiado" = no_colegiado_medico 
@@ -36,6 +36,7 @@ const getCirujiaEv = 'SELECT * FROM public."evolucion_cirujía" WHERE "cirujía_
 const updateTratamiento = 'UPDATE tratamiento set estado = $1 WHERE id = $2'
 const updateCirujiaDetails = 'UPDATE public."cirujía" SET estado = $1 ,fecha_finalizada = $2 WHERE id = $3'
 const addMedicamentoSuministrado = 'INSERT INTO public.medicamento_suministrado_tratamiento VALUES ($1, $2, $3)'
+const getMedicamentoSuministrado = 'SELECT tratamiento_id, medicamento_id , cantidad_suministrada , nombre as nombre_medicamento, tipo as tipo_medicamento , presentacion as presetnacion_medicamento FROM public.medicamento_suministrado_tratamiento a INNER JOIN MEDICAMENTO ON medicamento_id = codigo'
 module.exports = {
     addDiagnostico ,
     addTratamiento,
@@ -51,5 +52,6 @@ module.exports = {
     getCirujiaEv ,
     updateTratamiento ,
     updateCirujiaDetails ,
-    addMedicamentoSuministrado
+    addMedicamentoSuministrado,
+    getMedicamentoSuministrado
 }

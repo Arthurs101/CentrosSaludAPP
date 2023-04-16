@@ -41,20 +41,32 @@ const HacerTraslado = (req,res) => {
             if (err) throw err;
         }
         )
+                db.query("CALL updatePersonal()"); //SIEMPRE ACTUALIZAR EL PERSONAL
+        app.get('/', (req, res) => {
+            res.sendFile(__dirname + '/pages/home.html');
+        })
     }else {
         res.send(`missing Arguments:`)
     }
+
 }
 const obtenerPersonal = (req, res) => { 
-    if(!!req.query.centroid){
-        db.query(queries.getPersonal , [req.query.centroid] , (err, response) => { 
+    if(!!req.query.idcentro){
+        db.query(queries.searchPersonal(Object.entries(req.query)) ,  (err, response) => { 
             if (err) throw err;
             res.json(response.rows)
         })
     }
 }
+const getCentros = (req, res) => { 
+    db.query("SELECT * FROM public.centro_salud", (err, response) => {
+        if (err) throw err;
+        res.json(response.rows)
+    })
+}
 module.exports = {
     addPersonal,
     HacerTraslado,
-    obtenerPersonal
+    obtenerPersonal,
+    getCentros
 }

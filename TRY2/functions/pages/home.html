@@ -3,7 +3,7 @@
     <body>
         <main>
             <p>
-                OJO, SIEMPRE DEVUELVE EN ARREGLO JSON LOS RESULTADOS AUN CUANDO LA CONSULTA DEVUELVA UN SOLO ELEMENTO
+                OJO, SIEMPRE DEVUELVE EN ARREGLO JSON LOS RESULTADOS AUN CUANDO LA CONSULTA DEVUELVA UN SOLO ELEMENTO CUANDO SEA EXITOSA
             </p>
             <p>
                 Para las enfermedades (/enf):
@@ -230,7 +230,16 @@
                     </ul>                        
                         ejemplo: reporte?id=6&type=cirugia <- no importa el orden de id y type, deben de estar ambos
                 </li>
-                
+                <li>
+                    /search: buscar paciente , nota devuelve la informacion personal como /pac <br>
+                    parametros de busqueda: <br>
+                    <ul>
+                        <li>id: id del usuario</li>
+                        <li>name: nombre del paciente</li>
+                        <li>lname : apellido del paciente</li>
+                    </ul>
+                    la busqueda puede ser usando solo el id, o con ambos nombre apellido, por apellido o solo por nombre
+                </li>
                </ul>
             </p>
             <hr>
@@ -240,9 +249,48 @@
                 <ul>
                     <li>
                         /personal --- es decir el root  <br>
-                        requiere del siguiente query parametro: centroid
+                        requiere del siguiente query parametro: idcentro es el id centro del salud
+                        parametros extra: 
+                        <ul>
+                            <li>
+                                id: id del personal
+                            </li>
+                            <li>
+                                nombres: nombres a buscar entre el personal
+                            </li>
+                            <li>
+                                apellidos: apellidos a buscar entre el personal
+                            </li>
+                            <li>
+                                tipo: el tipo de personal (MEDICO, ADMINISTRADOR)
+                            </li>
+                        </ul>
                         ejemplo:
-                        <a href="/personal?centroid=1" target="_blank">/personal?centroid=1</a>
+                        <a href="https://us-central1-firstapi-cf05c.cloudfunctions.net/app/personal?idcentro=1" target="_blank">/personal?idcentro=1</a>
+                        <br>
+                        null es para cuando no es medico en los campos exclusivos a los medicos <br>
+                        {
+                            "id_personal": 1,
+                            "tipo": "ADMINISTRADOR",
+                            "nombres": "ARTHUR",
+                            "apellidos": "ARGUETA",
+                            "número_de_colegiado": null,
+                            "dirección": null,
+                            "teléfono": null,
+                            "especialidad_medica": null
+                        }
+                    </li>
+                    <li>
+                        /transfer <br> sirve para hacer los traslados de los medicos , parametros: 
+                        coleg : numero colegiado medico , req.query.centroid : id centro salud que lo va a recibir ,date: fecha a la cual se traslada (YYYY-MM-DD) 
+
+                    </li>
+                    <li>
+                        /centros <br>
+                        devuelve todos los centros de salud de la db (recomendado guardarlo en una variable en el front end) <br>
+                        devolucion: <br>
+                        {id: integer , nombre : text , departamento: text, municipio: text , tipo: text (HOSPITAL, CLINICA, CENTRO_SALUD , ETC)}
+
                     </li>
                 </ul>
                 <br>
@@ -268,9 +316,171 @@
                             "apellidos": "WHITE",                        
                         }                    
                     </li>
+                    
                 </ul>
 
             </p>
+            <hr>
+            <p>
+                /procedimientos <br>
+                POS METHODS
+                <ul>
+                    <li>
+                        /procedimientos <br>
+                        parametros requeridos: centroid (id del centro de salud ) , type (tipo de procedimientos medicos a buscar) <br>
+                        valores permitodos para type: cirujias , diagnosticos , tratemientos , examenes ,medicamento (suministrar medicamentos a un tratamiento) a realizar
+                        <br>
+                        datos para cada tipo: (PARA LAS FECHAS FORMATO 24 HORAS)
+                        <ul>
+                            <li> cirujias: <br> 
+                                {no_colegiado_medico_encargado: integer,id_paciente: integer,fecha_inicio: "YYYY-MM-DD HH:MM",estado: (programada, realizada, cancelada),
+                                fecha_finalizada: "YYYY-MM-DD HH:MM" ,id_centro_salud: integer}
+                            </li>
+                            <li> diagnosticos<br> 
+                            {no_colegiado_medico: integer ,paciente_id: integer ,enfermedad_id: integer ,centro_salud_id: integer}
+                            </li>
+                            <li> tratemientos<br> {no_colegiado_medico_encargado: integer,diagnostico_id: integer, estado: (finalizado, activo)}</li>
+                            <li> examenes <br> {no_colegiado_medico_referente: integer,id_paciente: integer,tipo: (HECES, CULTIVO, ORINA... ETC),
+                                fecha_realizado: "YYYY-MM-DD HH:MM" ,observaciones_adicionales: STRING O null ,id_centro_realizado: INTEGER}</li>
+                            <li> medicamento <br> {id_tratamiento: integer , id_medicamento: integer , cantidad_suministrada: integer}</li>
+                        </ul>
+                    </li>  
+                    <li>
+                        /evolucion <br>
+                        parametros requeridos: type (cirujia, tratamiento ) , id : id de la cirugia o tratamiento <br>
+                        cuerpo a enviar: <br>
+                        tratamiento : {id_tratamiento : integer , observación: STRING , fecha: DATE (YYYY-MM-DD)} <br>
+                        cirugia: {cirujía_id : integer , observación: STRING , fecha: DATE (YYYY-MM-DD)}
+                    </li> 
+                </ul>
+                GET METHODS
+                <ul>
+                    <li>
+                        /procedimientos <br>
+                        parametros requeridos: centroid (id del centro de salud ) , type (tipo de procedimientos medicos a buscar) <br>
+                        valores permitodos para type: cirujias , diagnosticos , tratemientos , examenes . realizados en el centro de salud <br>
+                        valores que devuelve segun type (las llaves del objeto JSON y si están en lista los resultados):
+                        <ul>
+                            <li> cirujias: <br> 
+                                {id_cirujia, estado_cirujia, paciente_id ,
+                                nombre_paciente , nombre_medico ,
+                                no_colegiado_medico ,fecha_inicio , fecha_finalizada}
+                            </li>
+                            <li> diagnosticos<br> 
+                            {id_diagnostico, paciente_id , nombre_paciente ,  nombre_medico ,
+                            no_colegiado_medico , estado , id_enfermedad , enfermedad}
+                            </li>
+                            <li> tratemientos<br> {id_tratamiento, estado_tratamiento, paciente_id ,id_diagnostico,
+                                nombre_paciente , as nombre_medico ,
+                                no_colegiado_medico , id_enfermedad , enfermedad}</li>
+                            <li> examenes <br> {id_examen,tipo_examen,paciente_id ,
+                                nombre_paciente , nombre_medico ,
+                                no_colegiado_medico ,fecha_realizado , observaciones_adicionales}</li>
+                            <li> <br> {}</li>
+                        </ul>
+                    </li>
+                    <li>
+                        /evolucion <br>
+                        parametros requeridos: type (cirujia, tratamiento ) , id : id de la cirugia o tratamiento <br>
+                        devolucion: <br>
+                        tratamiento : {id : integer , id_tratamiento : integer , observación: STRING , fecha: DATE (YYYY-MM-DD)} <br>
+                        cirugia: {id : integer , cirujía_id : integer , observación: STRING , fecha: DATE (YYYY-MM-DD)}
+                    </li>
+                </ul>
+
+            </p>
+            <hr>
+            <p>
+                /inventario
+                POST METHODS
+                <ul>
+                    <li>
+                        /inventario <br>
+                        parametros: 
+                        bodega ; medicina , materiales , medicina_global , materiales_global
+                        tipo: este varía según la bodega:
+                        <ul>
+                            <li>
+                                medicina: 
+                                <ul>
+                                    <li> lote - añadir nuevo lote de medicina, cuerpo a enviar: <br>
+                                    {idcentro : integer  , idmedicamento : integer , fechaV : date , cantidad : bigint}
+                                    </li>
+                                    <li> remover - remover una cantidad de producto de un lote  , cuerpo a enviar: <br> 
+                                    {idabastecimeinto : integer, cantidad_reducir :  bigint}
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                materiales
+                                <ul>
+                                    <li> lote - añadir nuevo lote de equipo medico , cuerpo a enviar : <br>
+                                    {idcentro : integer, idmaterial : integer, cantidad : bigint}
+                                    </li>
+                                    <li> remover - remover una cantidad de producto de un lote  , cuerpo a enviar:
+                                        {idabastecimeinto: integer, cantidad_reducir: bigint}
+                                         </li>
+                                    <li> restok - rebastecer un material medico , cuerpo a envier : <br>
+                                    {IDCENTRO : INTEGER, IDMATERIAL :  INTEGER, CANTIDAD : BIGIN}
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                medicina_global , materiales_global , ponerle 0 (tipo=0), <br>
+                                cuerpo a enviar para medicina_global: {NOMBRE: STRING,TIPO: STRING,PRESENTACION: STRING} <br>
+                                cuerpo a enviar para materiales_global: {NOMBRE: STRING,TIPO: STRING,"descripción": STRING} <br>
+
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                GET METHODS
+                <ul>
+                    <li>
+                        /inventario <br>
+                        parametros: <br>
+                        bodega ; medicina , materiales , medicina_global: TODOS LOS MEDICAMENTOS REGISTRADOS EN DB , materiales_global : TODOS LOS MATERIALES  REGISTRADOS EN DB <br>
+                        idcentro: id del centro de salud
+                        tipo: este varía según la bodega: <BR>
+                            <ul>
+                                <li>para medicina 
+                                    <ul>
+                                        <li>
+                                            vencimento ( los que están por vencer)
+                                        </li>
+                                        <li>
+                                            escaseando (los que se están por acabar)
+                                        </li>
+                                        <li>
+                                            lote (todos los que hay en el centro de salud)
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>para materiales <ul>
+                                    <li>
+                                        escaseando (los que se están por acabar)
+                                    </li>
+                                    <li>
+                                        lote (todos los que hay en el centro de salud)
+                                    </li>
+                                </ul></li>
+                                <li> medicina_global , materiales_global , ponerle 0 (tipo=0)</li>
+
+                            </ul>
+                        <br>
+                        <br>
+                        <br>
+                        
+                        <br>
+                        devolucion (según la bodega): <br>
+                        medicina :  {id_abastecimiento , id_medicamento , nombre, tipo, presentacion , fecha_vencimiento , cantidad_restante , cantidad_inicial } <br>
+                        materiales : { id_abastecimiento , id_materiales_medicos , nombre, tipo, "descripción" , cantidad_restante , cantidad_inicial}  <br>
+                        medicina_global: {codigo, nombre, tipo, presentacion } <br>
+                        materiales_global: {id , nombre , tipo , descripción }  <br>
+                    </li>
+                </ul>
+            </p>
+
         </main>
     </body>
 </html>

@@ -105,8 +105,10 @@ const postInventarioHandler = (req, res) => {
                 }
             break;
             case "medicina_global":
+                db.query(queries.nuevoMedicamento, Object.values(req.body) , (error, result) => { if(error) throw error;} )
             break;
             case "materiales_global":
+                db.query(queries.nuevoMaterial, Object.values(req.body) , (error, result) => { if(error) throw error;} )
             break;
             default: res.json({ error: 404 , message : "INVALID AEGUMENT QUERY" })
             break;
