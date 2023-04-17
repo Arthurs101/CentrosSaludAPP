@@ -35,23 +35,28 @@ const getExamns = (req, res) => {
 }
 
 const addCirujia = (req, res) => {
-    db.query(queries.addCirujia , Object.values(req.body), (err, res) => {
+    console.log(Object.values(req.body))
+    db.query(queries.addCirujia , Object.values(req.body), (err, result) => {
         if(err) throw err;
+        res.send('ADDED')
     })
 }
 const addDiagnostico = (req, res) => {
-    db.query(queries.addDiagnostico , Object.values(req.body), (err, res) => {
+    db.query(queries.addDiagnostico , Object.values(req.body), (err, result) => {
         if(err) throw err;
+        res.send('ADDED')
     })
 }
 const addTratamiento = (req, res) => {
-    db.query(queries.addTratamiento, Object.values(req.body), (err, res) => {
+    db.query(queries.addTratamiento, Object.values(req.body), (err, result) => {
         if(err) throw err;
+        res.send('ADDED')
     })
 }
 const addExamen = (req, res) => {
-    db.query(queries.addExamen , Object.values(req.body), (err, res) => {
+    db.query(queries.addExamen , Object.values(req.body), (err, result) => {
         if(err) throw err;
+        res.send('ADDED')
     })
 }
 
@@ -60,16 +65,18 @@ const getHandler = (req, res) => {
     if(!!req.query.centroid && !!req.query.type){
         switch(req.query.type){
             case "cirujias":
-                getCirujias
+                getCirujias(req, res)
             break;
             case "diagnosticos":
-                getDiagnosticos
+                getDiagnosticos(req, res)
             break;
             case "tratemientos":
-                getTratamientos
+                getTratamientos(req, res)
             break;
             case "examenes":
-                getExamns
+                getExamns(req, res)
+            break;
+            case "medicamento":
             break;
             default: 
             res.send('INVALID ARGUMENT')
@@ -87,21 +94,23 @@ const addMedicamentoSuministrado = (req, res) => {
 
 const postHandler = (req, res) => {
     if(!!req.query.type){
+        console.log(req.query.type)
         switch(req.query.type){
             case "cirujias":
-                addCirujia
+                addCirujia(req, res)
+                console.log("add CIRujia")
             break;
             case "diagnosticos":
-                addDiagnostico
+                addDiagnostico(req, res)
             break;
             case "tratemientos":
-                addTratamiento
+                addTratamiento(req, res)
             break;
             case "examenes":
-                addExamen
+                addExamen(req, res)
             break;
             case "medicamento":
-                addMedicamentoSuministrado
+                addMedicamentoSuministrado(req, res)
             break;
             default: 
             res.send('INVALID ARGUMENT')

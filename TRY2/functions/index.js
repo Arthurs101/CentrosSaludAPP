@@ -5,6 +5,7 @@ const paciente = require("./paciente/routesPaciente");
 const personal = require('./personal/routes')
 const procedimientos = require("./procedimientosM/routes")
 const inventario = require("./Abastecimientos/routes")
+const estadisticas = require("./stadistics/routes")
 
 var express = require("express");
 var app = express();
@@ -20,6 +21,7 @@ app.use("/pac" , paciente);
 app.use('/personal' , personal)
 app.use('/procedimientos' , procedimientos)
 app.use('/inventario',inventario)
+app.use('/estadisticas',estadisticas)
 exports.app = functions.https.onRequest(app)
 // // Create and deploy your first functions
 // // https://firebase.google.com/docs/functions/get-started

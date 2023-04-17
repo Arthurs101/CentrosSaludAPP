@@ -5,12 +5,12 @@ const AddIllnes  = "INSERT INTO ENFERMEDADES (nombre,  tipo, observaciones ) val
 const getByNameType = (name,type) => {
     let query = "SELECT * FROM ENFERMEDADES"
     if (!!name) {
-        query +=  ` WHERE nombre LIKE '%${name}%'`
+        query +=  ` WHERE nombre ILIKE '%${name}%'`
         if (!!type) {
-            query += ` AND tipo LIKE '%${type}%'`
+            query += ` AND tipo ILIKE '%${type}%'`
         }
     } else if (!!type) {
-        query += ` WHERE tipo LIKE '%${type}%'`
+        query += ` WHERE tipo ILIKE '%${type}%'`
     }
     return query
 }
