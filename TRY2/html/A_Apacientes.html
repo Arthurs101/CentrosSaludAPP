@@ -31,7 +31,7 @@
             <li class="nav-item">
               <a class="nav-link" href="A_SuperU.html">Mi cuenta</a>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item">
               <a class="nav-link" href="#">Personal</a>
               <ul>
                 <li class="nav-item">
@@ -48,10 +48,10 @@
                 </li>
               </ul>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item">
               <a class="nav-link" href="#">Procedimientos</a>
               <ul>
-                <li class="nav-item active">
+                <li class="nav-item">
                   <a class="nav-link" href="A_procedimientos.html">Procedimientos</a>
                 </li>
                 <li class="nav-item">
@@ -65,13 +65,13 @@
                 </li>
               </ul>
             </li>
-            <li class="nav-item">
+            <li class="nav-item active">
               <a class="nav-link" href="#">Pacientes</a>
               <ul>
                 <li class="nav-item">
                   <a class="nav-link" href="A_pacientes.html">Ingresar</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item active">
                   <a class="nav-link" href="A_Apacientes.html">Actualizar</a>
                 </li>
                 <li class="nav-item">
@@ -112,10 +112,10 @@
           <ol class="breadcrumb breadcrumb-dark bg-transparent justify-content-center py-0 mb-2">
             <li class="breadcrumb-item"><a href="index.html">Home</a></li>
             <!-- IMPORTANTE -->
-            <li class="breadcrumb-item active" aria-current="page">Procedimientos</li>
+            <li class="breadcrumb-item active" aria-current="page">Pacientes</li>
           </ol>
         </nav>
-        <h1 class="font-weight-normal">Ingreso de Procedimiento</h1>
+        <h1 class="font-weight-normal">Actualizar datos</h1>
       </div> <!-- .container -->
     </div> <!-- .banner-section -->
   </div> <!-- .page-banner -->
@@ -123,108 +123,41 @@
   <div style="text-align:center;" >
 		<div class="row justify-content-center">
 			<div class="col-md-6 col-lg-4 bg-light">
-			  <br>
-        <!-- Enviar POST -->
-        <form action="#" method="POST"></form>
-          <div class="p-0">
-            <!-- Cirujia -->
-            <h3 class="mb-4 text-center">Cirujia</h3>
-            <div class="form-group">
-              <input type="text" class="form-control" placeholder="No. Colegiado Medico Encargado">
-            </div>
-            <div class="form-group">
-              <input type="text" class="form-control" placeholder="ID Paciente">
-            </div>
-            <div class="form-group">
-              Fecha de Inicio
-              <input type="date" class="form-control">
-            </div>
-            <div class="form-group">	
-              <select name="selec1" class="form-control">
-                <option class="form-control">Estado...</option>
-                <option value="PROGRAMADA">Programada</option>
-                <option value="REALIZADA">Realizada</option>
-                <option value="CANCELADA">Cancelada</option>
-              </select>
-            </div>
-            <div class="form-group">
-              Fecha Final
-              <input type="date" class="form-control">
-            </div>
-            <div class="form-group">
-              <input type="text"  class="form-control" placeholder="ID del centro de salud">
-            </div>
-            <br><br>
-            <!-- Diagnostico -->
-            <h3 class="mb-4 text-center">Diagnostico</h3>
-            <div class="form-group">
-              <input type="text" class="form-control" placeholder="No. Colegiado Medico Encargado">
-            </div>
-            <div class="form-group">
-              <input type="text" class="form-control" placeholder="ID Paciente">
-            </div>
-            <div class="form-group">
-              <input type="text" class="form-control" placeholder="ID Enfermedad">
-            </div>
-            <div class="form-group">
-              <input type="text"  class="form-control" placeholder="ID del centro de salud">
-            </div>
-            <br><br>
-            <!-- Tratamientos -->
-            <h3 class="mb-4 text-center">Tratamiento</h3>
-            <div class="form-group">
-              <input type="text" class="form-control" placeholder="No. Colegiado Medico Encargado">
-            </div>
-            <div class="form-group">
-              <input type="text" class="form-control" placeholder="ID Diagnostico">
-            </div>
-            <div class="form-group">	
-              <select name="selec1" class="form-control">
-                <option class="form-control">Estado...</option>
-                <option value="Activo">Activo</option>
-                <option value="Finalizado">Finalizado</option>
-              </select>
-            </div>
-            <br><br>
-            <!-- Examenes -->
-            <h3 class="mb-4 text-center">Examenes</h3>
-              <div class="form-group">
-                <input type="text" class="form-control" placeholder="No. Colegiado Medico Encargado">
-              </div>
-              <div class="form-group">
-                <input type="text" class="form-control" placeholder="ID Paciente">
-              </div>
-              <div class="form-group">
-                <input type="text" class="form-control" placeholder="Tipo de examen">
-              </div>
-              <div class="form-group">
-                Fecha de Realización
-                <input type="date" class="form-control">
-              </div>
-              <div class="form-group">
-                <textarea type="text" class="form-control" placeholder="Observaciones" required></textarea>
-              </div>
-              <div class="form-group">
-                <input type="text"  class="form-control" placeholder="ID del centro de salud">
-              </div>
-              <br><br>
-              <!-- Medicamentos -->
-              <h3 class="mb-4 text-center">Medicamentos</h3>
-              <div class="form-group">
-                <input type="text" class="form-control" placeholder="ID Tratamiento">
-              </div>
-              <div class="form-group">
-                <input type="text" class="form-control" placeholder="ID Medicamento">
-              </div>
-              <div class="form-group">
-                <input type="text" class="form-control" placeholder="Cantidad">
-              </div>
-              <div class="form-group">
-                <a href="#"><button type="submit" class="form-control btn btn-primary submit px-3">Registrar</button></a>
-              </div>
-            </div>
-          </form>
-		      <br>
+				<br>
+        <!-- nombres : "bbbs", apellidos: "aaa",
+             edad: 40, altura: 120, masa: 90, estado: "sano"} -->
+				<div class="p-0">
+					<div class="form-group">
+			   			<input type="text"  class="form-control" placeholder="Nombre" required>
+			  		</div>
+			       	<div class="form-group ">
+			        	<input type="text" class="form-control" placeholder="Apellidos" required>
+			       	</div>
+			       	<div class="form-group ">
+			        	<input type="text" class="form-control" placeholder="Edad" required>
+			       	</div>
+					<div class="form-group">
+			        	<input type="text" class="form-control" placeholder="Altura" required>
+			       	</div>
+                    <div class="form-group">
+			        	<input type="text" class="form-control" placeholder="Masa" required>
+			       	</div>
+			     	<div class="form-group">	
+						<select name="selec1" class="form-control">
+						  <option class="form-control">Estado...</option>
+						  <option value="SANO">Sano</option>
+						  <option value="ENFERMO">Enfermo</option>
+                          <option value="INTERNADO">Internado</option>
+					  </select>
+				   	</div>
+                    <div class="form-group">
+			        	<input type="text" class="form-control" placeholder="Id paciente" required>
+			       	</div>
+			       	<div class="form-group">
+			        	<button type="submit" class="form-control btn btn-primary submit px-3" name="btn">Registrar</button>
+			       	</div>
+			    </div>
+			    <br>
 			</div>
 		</div>
 	</div>
