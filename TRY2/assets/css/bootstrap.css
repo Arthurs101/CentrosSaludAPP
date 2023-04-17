@@ -13,7 +13,7 @@
   --orange: #fd7e14;
   --yellow: #ffc107;
   --green: #28a745;
-  --teal: #20c997;
+  --teal: hwb(162 13% 21%);
   --cyan: #17a2b8;
   --white: #fff;
   --gray: #6c757d;
@@ -114,28 +114,35 @@ ul ol {
   margin-bottom: 0;
 }
 
-ul, ol{
-  list-style: none;
+ul, ol {
+		list-style: none;
 }
-
-.nav-item li a{
-  text-decoration: none;
-  padding: 10px 15px;
-  display: block;
+.nav-item > li {
+	float: left;
 }
-
-.nav-item > li{
-  float: left;
+.nav-item li a {
+	text-decoration: none;
+	padding: 10px 10px;
+	display: block;
 }
-
-.nav-item li ul{
-  display: none;
-  position: absolute;
-  min-width: 140px;
+.nav-item li a:hover {
+	background-color: rgb(32, 201, 151);
 }
-
+.nav-item li ul {
+	display: none;
+	position: absolute;
+	min-width: 100px;
+}
 .nav-item li:hover > ul{
-  display: block;
+	display: block;
+}
+.nav-item li ul li{
+	position: relative;
+}
+.nav-item li ul li ul{
+	position: relative;
+	right: -50px;
+	top: 0px;
 }
 
 dt {
