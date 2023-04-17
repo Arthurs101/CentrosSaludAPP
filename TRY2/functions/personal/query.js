@@ -11,16 +11,16 @@ const searchPersonal = (entries) => {
             query += ` WHERE id = ${entries[0][1]}`
         break;
         case "nombres":
-            query += ` WHERE nombres LIKE '%${entries[0][1]}%'`
+            query += ` WHERE nombres ILIKE '%${entries[0][1]}%'`
         break;
         case "apellidos":
-            query += ` WHERE apellidos LIKE '%${entries[0][1]}%'`
+            query += ` WHERE apellidos ILIKE '%${entries[0][1]}%'`
         break;
         case "idcentro":
             query += ` WHERE id_centro_salud = ${entries[0][1]}`
         break;
         case "tipo":
-            query += ` WHERE tipo LIKE '%${entries[0][1]}%'`
+            query += ` WHERE tipo ILIKE '%${entries[0][1]}%'`
         break;
     }
     for (let i = 1; i < entries.length; i++) {
@@ -29,16 +29,16 @@ const searchPersonal = (entries) => {
                 query += ` AND id = ${entries[i][1]}`
             break;
             case "nombres":
-                query += ` AND nombres LIKE '%${entries[0][1]}%'`
+                query += ` AND nombres ILIKE '%${entries[0][1]}%'`
             break;
             case "apellidos":
-                query += ` AND apellidos LIKE '%${entries[0][1]}%''`
+                query += ` AND apellidos ILIKE '%${entries[0][1]}%''`
             break;
             case "idcentro":
                 query += ` AND id_centro_salud = ${entries[i][1]}`
             break;
             case "tipo":
-            query += ` AND tipo LIKE '%${entries[0][1]}%'`
+            query += ` AND tipo ILIKE '%${entries[0][1]}%'`
         break;
         }
     }    
